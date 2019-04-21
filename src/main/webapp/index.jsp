@@ -279,7 +279,7 @@
 				return false;
 			}
 			var email =$("#emp_email_input").val();
-			var regEmail=/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$^[a-z\d]+(\.[a-z\d]+)*@([\da-z](-[\da-z])?)+(\.{1,2}[a-z]+)+$/;
+			var regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
 			if(!regEmail.test(email)){
 				alert("邮箱格式不正确");
 				return false;
