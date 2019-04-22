@@ -44,6 +44,7 @@
 							<div class="col-sm-10">
 								<input type="text" name="empName" class="form-control"
 									id="emp_name_input" placeholder="员工姓名">
+									<span class="help-block"></span>
 							</div>
 						</div>
 						<div class="form-group">
@@ -51,6 +52,7 @@
 							<div class="col-sm-10">
 								<input name="email" type="text" class="form-control"
 									id="emp_email_input" placeholder="xiaopang@guigu.com">
+									<span class="help-block"></span>
 							</div>
 						</div>
 						<div class="form-group">
@@ -231,6 +233,7 @@
 		}
 		//点击新增员工
 		$("#emp_add_modal_btn").click(function() {
+			
 			//发送ajax请求
 			getDepts();
 			//弹出
@@ -240,6 +243,7 @@
 		});
 		
 		function getDepts(){
+			$("#dept_add_select").empty();
 			$.ajax({
 				url:"${APP_PATH}/depts",
 				type:"GET",
@@ -270,22 +274,53 @@
 			});
 			
 		});
+		
+		$("#emp_name_input").change(function(){
+			
+		});
+		
+		
+		
 		function validate_add_form(){
 			//拿到数据，进行正则表达式校验
 			var empName = $("#emp_name_input").val();
 			var regName = /(^[a-zA-Z0-9_-]{6,16}$)|(^[\u2E80-\u9FFF]{2,5})/;
 			if(!regName.test(empName)){
-				alert("用户可以是2-5中文文或者2-16英文");
+				show_validate_msg("#emp_name_input","error","用户可以是2-5中文文或者2-16英文");
+				//$("#emp_name_input").parent().addClass("has-error");
+				//$("#emp_name_input").next("span").text("用户可以是2-5中文文或者2-16英文");
 				return false;
+			}else{
+				show_validate_msg("#emp_name_input","success","");
+				//$("#emp_name_input").parent().addClass("has-success");
+				//$("#emp_name_input").next("span").text("");
 			}
 			var email =$("#emp_email_input").val();
 			var regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
 			if(!regEmail.test(email)){
-				alert("邮箱格式不正确");
+				show_validate_msg("#emp_email_input","error","邮箱格式不正确");
+				//$("#emp_email_input").parent().addClass("has-error");
+				//$("#emp_email_input").next("span").text("邮箱格式不正确");
 				return false;
+			}else{
+				show_validate_msg("#emp_email_input","success","");
+				$("#emp_email_input").parent().addClass("has-success");
+				$("#emp_email_input").next("span").text("");
 			}
 			return true;
 		}
+		function show_validate_msg(ele,status,msg){
+			//清除校验状态
+			$(ele).parent().removeClass("has-success has-error");
+			if("success"==status){
+				$(ele).parent().addClass("has-success");
+				$(ele).next("span").text(msg);
+			}else{
+				$(ele).parent().addClass("has-error");
+				$(ele).next("span").text(msg);	
+			}
+		}
+		
 	</script>
 </body>
 </html>

@@ -33,20 +33,12 @@ public class EmployeeController {
 		PageInfo page = new PageInfo(emps,5);
 		return Msg.success().add("pageinfo",page);
 	}
-	
 	@RequestMapping(value="/emp",method=RequestMethod.POST)
 	@ResponseBody
 	public Msg saveEmp(Employee employee) {
 		employeeService.saveEmp(employee);
 		return Msg.success();
-		
 	}
-	
-	
-	
-	
-	
-	
 	//@RequestMapping("/emps")
 	public String getEmps(@RequestParam(value="pn",defaultValue="1")Integer pn,Model model) {
 		//ÒýÈëpageHelper²å¼þ
@@ -59,4 +51,11 @@ public class EmployeeController {
 		model.addAttribute("pageinfo",page);
 		return "list";
 	}
+	
+	public Msg checkUser(String empName) {
+		employeeService.checkUser(empName);
+		return null;
+	}
+	
+	
 }
